@@ -23,8 +23,7 @@ def splitIntoWords(article):
 
         for sentence in sentences:
             words=nltk.word_tokenize(sentence) #then split each sentence into words
-            documentWords+=(words)
-
+            documentWords+=words
     return documentWords
 
 # the pre-processing method
@@ -32,7 +31,8 @@ def preProcessing(document):
     processedDocument=[]
     iter_d=iter(document)
     for word in iter_d:
-        lowerWord=word.lower() # change to lowercase
+        #lowerWord=word
+        lowerWord=word.lower()# change to lowercase
         word=""
         for char in lowerWord:# delete punctuation #delete numbers
             if (char not in string.punctuation) and (char not in string.digits):
@@ -64,7 +64,7 @@ def createDic(fileList):
                     wordDic[word]+=1
     # filter those words whose document frequency is lower than 6
     for word in list(wordDic.keys()):
-        if wordDic[word] < 15:
+        if wordDic[word] <= 15:
             del wordDic[word]
     return wordDic
 
@@ -88,8 +88,16 @@ def docProcess(path,fileList,tfDocumentList,flag):
 
             wordList=splitIntoWords(currentDoc.readlines()) #tokenization
 
+            text = nltk.Text(wordList)
+            tags = nltk.pos_tag(text)
+            wordVec = []
+            for tag in tags:
+                if "NN" in tag[1]:
+                    wordVec.append(tag[0])
+            #print(wordVec)
+
             #print(wordList)
-            processedDocument=preProcessing(wordList) #preprocessing
+            processedDocument=preProcessing(wordVec) #preprocessing
 
             documentLength = len(processedDocument) #number of words in one document
             count=Counter(processedDocument) #count the number of each word

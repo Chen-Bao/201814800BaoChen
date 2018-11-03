@@ -2,48 +2,46 @@ import math
 from collections import Counter
 
 #training data
-trainPath = "D:/Coding/Data Mining/20news/matrix-training.txt"
-testPath = "D:/Coding/Data Mining/20news/matrix-test.txt"
-
-testf=open(testPath,encoding='ISO-8859-1')
+trainPath = "train/matrix-unit.txt"
+testPath = "test/matrix-unit.txt"
 
 def takeSecond(elem):
     return elem[1]
 
 categoryList=[]
+count=0
 
-while True:
-    testVec=testf.readline() # a testing document
-    if not testVec:
-        break
-    else:
-        testVec.strip("\n")
-        testVec = testVec.split()
+with open(testPath, encoding='ISO-8859-1') as testf:
+    for testVec in testf:
+    # a testing document
+        testVec=testVec.strip("\n").split()
+        new_vec = []
+        for item in testVec[1:]:
+            new_vec.append(float(item))
+        testVec = new_vec
+        '''turn to unit vector
+        normTestVec=math.sqrt(sum([item*item for item in testVec]))
+        testVec= [item / normTestVec for item in testVec]
+        '''
         distanceSet = []
-        trainf = open(trainPath, encoding='ISO-8859-1')
-        while True:
-            trainVec = trainf.readline()
-            if not trainVec:
-                break
-            else:
-                trainVec.strip("\n")
-                trainVec = trainVec.split()
 
+        with open(trainPath, encoding='ISO-8859-1') as trainf:
+            for trainVec in trainf:
+                trainVec=trainVec.strip("\n").split()
+                #print(trainVec[0])
                 #compute cosine value of two vectors
-                cosVal=0
-                dotMul = 0
-                normTrain=0
-                normTest=0
-                for i in range(1,len(trainVec)):
-                    dotMul += float(trainVec[i])*float(testVec[i])
-                    normTrain+=math.pow(float(trainVec[i]),2)
-                    normTest+=math.pow(float(testVec[i]),2)
-                normTrain=math.sqrt(normTrain)
-                normTest=math.sqrt(normTest)
-                cosVal=abs(dotMul)/(normTrain*normTest)
+                new_vec = []
+                for item in trainVec[1:]:
+                    new_vec.append(float(item))
+                '''
+                normTrainVec = math.sqrt(sum([item * item for item in trainVec]))
+                trainVec = [item / normTrainVec for item in trainVec]
+
+                print(trainVec)
+                '''
+                cosVal=sum([testVec[i]*new_vec[i] for i in range(len(new_vec))])
                 #print(cosVal)
                 distanceSet.append((trainVec[0],cosVal))
-        trainf.close()
 
         # find the top 100 largest cosine value (top 100 nearest vectors)
         distanceSet.sort(key=takeSecond,reverse=True)
@@ -53,8 +51,10 @@ while True:
             category100.append(distanceSet[i][0])
         #print(category100)
         countingRes=Counter(category100)
+        #print(countingRes)
         maxCategory=max(countingRes.items(),key=lambda x:x[1])[0] #find the category testVector belongs to
-        print(maxCategory)
+        count+=1
+        print(count,maxCategory)
         #print("\n")
         categoryList.append(maxCategory)
 testf.close()

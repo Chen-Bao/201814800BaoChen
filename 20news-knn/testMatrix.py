@@ -1,12 +1,12 @@
 import constMatrix
 
-documentPath = "D:/Coding/Data Mining/20news/processedDoc.txt"
+documentPath = "test/processedDoc.txt"
 
-dictionaryPath="D:/Coding/Data Mining/20news/train-dic.txt"
+dictionaryPath="train/dic.txt"
 
-tfPath="D:/Coding/Data Mining/20news/tf.txt"
+tfPath="test/tf.txt"
 
-idfPath="D:/Coding/Data Mining/20news/idf.txt"
+idfPath="test/idf.txt"
 
 docContent=constMatrix.inputDoc(documentPath)
 dictionary=constMatrix.inputDic(dictionaryPath)
@@ -18,7 +18,7 @@ print(len(dictionary))
 
 documentMatrix=constMatrix.constructMatrix(docContent,dictionary,tf,idf)
 
-ff = open("matrix-test.txt", "w",encoding='ISO-8859-1')
+ff = open("test/matrix.txt", "w",encoding='ISO-8859-1')
 for i in range(len(docContent)):
     documentVector=documentMatrix[i]
     for j in range(len(dictionary)):
