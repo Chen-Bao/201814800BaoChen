@@ -8,7 +8,7 @@ fileList = []  # the list of files
 tfDocumentList=[]#the list of tf values of documents within one single file
 flag=0 #flag=0, training
 document_count=process.docProcess(path,fileList,tfDocumentList,flag)
-
+'''
 tf3000List=[]
 f5=open("train/3000.txt","w",encoding='ISO-8859-1')
 for file in fileList:
@@ -74,4 +74,3 @@ else:
 for word in idf:
     f.write('%s\t%9f\n' % (word, idf[word]))
 f.close()
-'''
