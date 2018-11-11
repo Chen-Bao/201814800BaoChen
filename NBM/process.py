@@ -82,7 +82,7 @@ def docProcess(path,fileList,tfDocumentList,flag):
             documentRange=range(countTraining) #training
         else:
             documentRange=range(countTraining,len(documents))
-        f=open("processedDoc_" + str(category_index)+ ".txt", "w", encoding='ISO-8859-1')
+        #f=open("processedDoc_" + str(category_index)+ ".txt", "w", encoding='ISO-8859-1')
         for i in documentRange:
             document_count+=1
             currentDoc = open(path + "/" + file+"/"+documents[i],encoding='ISO-8859-1')
@@ -116,12 +116,14 @@ def docProcess(path,fileList,tfDocumentList,flag):
             #print(processedDocument)
             documentList.append(processedDocument)
             tfDocumentList.append(tf)
+            '''
             for word in processedDocument:
                 f.write('%s ' % (word))
             f.write("\n")
+            '''
         fileList.append(documentList)
         category_index+=1
-        f.close()
+       # f.close()
 
     return document_count
 

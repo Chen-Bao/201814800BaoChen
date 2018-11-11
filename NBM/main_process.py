@@ -2,11 +2,11 @@ import process
 from collections import Counter
 
 #input data
-path = "D:/Coding/Data Mining/20news-18828"
+path = "E:/Coding/Data Mining/20news-18828"
 
 fileList = []  # the list of files
 tfDocumentList=[]#the list of tf values of documents within one single file
-flag=0 #flag=0, training
+flag=1 #flag=0, training
 document_count=process.docProcess(path,fileList,tfDocumentList,flag)
 '''
 tf3000List=[]
@@ -28,14 +28,14 @@ fff = open("train/tf-3000.txt", "w", encoding='ISO-8859-1')
 for document in tf3000List:
     fff.write('%s\n' % (document))
 fff.close()
-
+'''
 
 #CountTheNumber=0
 
 if flag==0:
-    f4= open("train/processedDoc.txt", "w",encoding='ISO-8859-1')
+    f4= open("train_processedDoc.txt", "w",encoding='ISO-8859-1')
 else:
-    f4 = open("test/processedDoc.txt", "w", encoding='ISO-8859-1')
+    f4 = open("test_processedDoc.txt", "w", encoding='ISO-8859-1')
 for file in fileList:
     for document in file:
         for word in document:
@@ -44,7 +44,7 @@ for file in fileList:
         #CountTheNumber+=1
 f4.close()
 #print(CountTheNumber)
-
+'''
 #print(len(tfDocumentList))
 #print(document_count) #15056
 if flag==0:
