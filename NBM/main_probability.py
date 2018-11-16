@@ -15,11 +15,11 @@ for i in range(20):
     wordCount.append(0)
     for document in documents:
         document=document.strip("\n").split()
-        docVec.append(document[1:])
+        docVec.append(document[1:]) # the first number is the category mark
         wordCount[i]+=len(document)-1
-    totalLength+=wordCount[i]
+    totalLength+=wordCount[i] # count the total number of words of the whole data set, for calculating prior probability
 
-    proDic={} # the dictionary of a category
+    proDic={} # the dictionary of a category which stores the number of each word
     for wordVec in docVec:
         for word in wordVec:
             if word not in proDic:
@@ -45,7 +45,7 @@ priorProb=[]
 for i in range(20):
     categoryPath = "cateProbability.txt"
     f1 = open(categoryPath, 'w', encoding="ISO-8859-1")
-    priorProb.append(wordCount[i]/totalLength)
+    priorProb.append(wordCount[i]/totalLength) # the number of words in each category / the number of words in the whole data set
     for cate in priorProb:
         f1.write("%f\n" % cate)
 #print(priorProb)
