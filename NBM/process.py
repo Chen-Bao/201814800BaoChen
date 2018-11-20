@@ -78,14 +78,11 @@ def docProcess(path,fileList,flag):
             for tag in tags:
                 if "NN" in tag[1]:
                     wordVec.append(tag[0])
-            #print(wordVec)
 
-            #print(wordList)
             processedDocument=preProcessing(wordVec) #preprocessing
 
             documentLength = len(processedDocument) #number of words in one document
             count=Counter(processedDocument) #count the number of each word
-            #print(count.most_common(10))
 
             processedDocument=[category_index]+processedDocument
 

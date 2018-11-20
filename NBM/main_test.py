@@ -4,27 +4,30 @@ import math
 def takeSecond(elem):
     return elem[1]
 
+# the processed testing document that were split in to words
 f1=open("test_processedDoc.txt",encoding='ISO-8859-1')
-processedTest=f1.readlines() # the processed testing document that were split in to words
+processedTest=f1.readlines()
 
+# the prior probability of each category
 f2=open("cateProbability.txt",encoding='ISO-8859-1')
-cateProbability=f2.readlines() # the prior probability of each category
+cateProbability=f2.readlines()
 newCate=[]
 for cate in cateProbability:
     newCate.append(float(cate.strip('\n')))
 cateProbability=newCate
 
+# the total number of words in each category
 f3=open("wordCount.txt",encoding='ISO-8859-1')
-wordCount=f3.readlines() # the number of words in each category
+wordCount=f3.readlines()
 newcount=[]
 for count in wordCount:
     newcount.append(int(count.strip("\n")))
 wordCount=newcount
 
-#################################
+# the frequency of each word in each category of the training data. (word,categoryFrequency)
 filePath="D:/Coding/Data Mining/NBM/probability"
 dictionary={}
-probList=[] # the number of each word in each category of the training data. (word,categoryFrequency)
+probList=[]
 for i in range(20):
     f4=open(filePath+"/probability_"+str(i)+".txt",encoding='ISO-8859-1')
     probabilities=f4.readlines()
@@ -37,8 +40,9 @@ for i in range(20):
         docProb[probability[0]]=float(probability[1])
     probList.append(docProb)
     f4.close()
-#print(len(dictionary))
 #################################
+
+#input the test data
 classifiedCate=[]
 initialCate=[]
 f5=open("test_result.txt","w")
@@ -54,8 +58,6 @@ for document in processedTest:
                 P_doc+=math.log((probList[i][word]+1)/(wordCount[i]+len(dictionary)))
             else:
                 P_doc+=math.log(1/(wordCount[i]+len(dictionary)))
-            #print(P_doc)
-        #print("HELLO")
         P_doc=P_doc+math.log(cateProbability[i])
         documentProb.append((i,P_doc))
     documentProb.sort(key=takeSecond,reverse=True)
