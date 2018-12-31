@@ -41,3 +41,15 @@ main_test # input test data and calculate Naive Bayes Model
 
 ====================
 
+<Experiment 3>
+
+***seee the file "SkLearn"***
+
+run following programs in order:
+
+pre.py # pre-process document
+
+main.py # calculate tf-idf
+
+sktest.py # all kinds of clustering method
+
