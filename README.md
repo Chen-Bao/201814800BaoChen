@@ -33,7 +33,9 @@ run following programs in order:
 
 main_process # generate pre-processed document. This method invokes process.py
 
-main_probability # calculate the prior probability of each category and the conditional probability of each word in each category
+main_probability # calculate the conditional probability of each word in each category
+
+main # calculate the prior probability of each category
 
 main_test # input test data and calculate Naive Bayes Model
 
